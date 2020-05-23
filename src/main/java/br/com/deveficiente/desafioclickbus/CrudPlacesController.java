@@ -54,6 +54,16 @@ public class CrudPlacesController {
         }).collect(Collectors.toList());
     }
 
+    @GetMapping("/places/{id}")
+    public Map<String,Object> findById(@PathVariable("id") Long id){
+        return DataView.of(manager.find(Place.class, id))
+            .add(Place :: getId)
+            .add(Place :: getName)
+            .add(Place :: getCity)
+            .add(Place :: getState)
+            .add(Place :: getSlug).build();
+    }    
+
     @DeleteMapping("/places/{id}")
     @Transactional
     public void delete(@PathVariable("id") Long id){
