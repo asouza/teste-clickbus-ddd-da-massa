@@ -46,9 +46,13 @@ public class CrudPlacesController {
         //não me culpe, o find retorna nulo e eu jogo com as cartas que existem
         if(placeToBeRemoved == null) {
             return;
-        }
-        
+        }        
         manager.remove(placeToBeRemoved);
+    }
+
+    @GetMapping("/places/{id}")
+    public BasicPlaceResponse findById(@PathVariable("id") Long id){
+        return new BasicPlaceResponse(manager.find(Place.class,id));
     }
 
 }
